@@ -3,8 +3,8 @@
 #include "SimpleDraw.h"
 Player::Player(void)
 {
-	x=500;
-	y=550;
+	x=495;
+	y=555;
 }
 void Player::move(int direction)//player hareket
 {	
