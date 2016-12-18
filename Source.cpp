@@ -16,9 +16,7 @@ int main()
 
 	Blocks blocks;
 	Player player;
-	CircleEnemy a[3] = { CircleEnemy(210,300),
-		CircleEnemy(400,300),
-		CircleEnemy(590,300)};
+	CircleEnemy a[3] = { CircleEnemy(210,300),CircleEnemy(400,300),CircleEnemy(590,300)};
 	LifeUp lifeup(500, 150);
 	TriangleEnemy tri1(275,480),tri2(675,480);
 	Bullet b;
@@ -54,18 +52,9 @@ int main()
 		}
 		if(getKey('P'))
 		{
-			b.setX(player.getX());
-			b.setY(player.getY()-50);
-			while(true)   
-			{
-				usePen(PS_SOLID, 3, RGB(255, 0, 0));
-				drawRectangle(b.getX(),b.getY(),b.getX()+5,b.getY()+10);
-				Sleep(100);
-				usePen(PS_SOLID, 3, RGB(255,255,255));
-				drawRectangle(b.getX(),b.getY(),b.getX()+5,b.getY()+10);
-				b.setY(b.getY()-10);
-			}
+			b.addBall(player.getX(),player.getY()-50);
 		}
+
 		player.drawPlayer();
 		a[0].drawEnemyCircle();
 		a[1].drawEnemyCircle();
@@ -74,9 +63,8 @@ int main()
 		lifeup.drawLifeUp();
 		tri1.drawTriangle();
 		tri2.drawTriangle();
-
-
-
-		Sleep(55);
+		for(int i=0;i<=b.getNum();i++)
+			b.drawBullet(i);
+		Sleep(50);
 	}
 }
