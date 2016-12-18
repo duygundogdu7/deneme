@@ -1,6 +1,7 @@
 #pragma once
 class CircleEnemy
 {
+protected:	
 	float x,y;
 	int frames;
 	bool rightdir;
