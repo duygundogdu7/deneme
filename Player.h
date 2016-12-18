@@ -16,5 +16,9 @@ public:
 	Player(void);
 	void move (int direction);
 	void drawPlayer();
+	void setX(float);
+	void setY(float);
+	float getX();
+	float getY();
 };
 

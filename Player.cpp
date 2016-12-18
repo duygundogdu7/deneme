@@ -37,3 +37,19 @@ void Player::drawPlayer()
 	drawCircle(x-10,y-8,2);
 	drawCircle(x+10,y-8,2);
 }
+void Player::setX(float a)
+{
+ x = a;
+}
+void Player::setY(float b)
+{
+ y = b;
+}
+float Player::getX()
+{
+ return x;
+}
+float Player::getY()
+{
+ return y;
+}

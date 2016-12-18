@@ -6,21 +6,22 @@
 #include "Blocks.h"
 #include "LifeUp.h"
 #include "TriangleEnemy.h"
-
+#include "Bullet.h"
 using namespace std;
 
 
 int main()
 {
 	setWindowSize(1000, 700);
-	
+
 	Blocks blocks;
 	Player player;
 	CircleEnemy a[3] = { CircleEnemy(210,300),
-		                 CircleEnemy(400,300),
-		                 CircleEnemy(590,300)};
+		CircleEnemy(400,300),
+		CircleEnemy(590,300)};
 	LifeUp lifeup(500, 150);
 	TriangleEnemy tri1(275,480),tri2(675,480);
+	Bullet b;
 
 	while(true)
 	{
@@ -28,10 +29,6 @@ int main()
 		drawRectangle(0,0,1000,700);
 		useBrush(1,RGB(255,255,255));
 		drawRectangle(100, 100, 900, 600);
-		
-		
-		/*time_t lastTime;
-	    time(&lastTime);*/
 
 		a[0].move();
 		a[1].move();
@@ -55,9 +52,20 @@ int main()
 		{
 			player.move(DIRECTION_RIGHT);
 		}
-
-		
-
+		if(getKey('P'))
+		{
+			b.setX(player.getX());
+			b.setY(player.getY()-50);
+			while(true)   
+			{
+				usePen(PS_SOLID, 3, RGB(255, 0, 0));
+				drawRectangle(b.getX(),b.getY(),b.getX()+5,b.getY()+10);
+				Sleep(100);
+				usePen(PS_SOLID, 3, RGB(255,255,255));
+				drawRectangle(b.getX(),b.getY(),b.getX()+5,b.getY()+10);
+				b.setY(b.getY()-10);
+			}
+		}
 		player.drawPlayer();
 		a[0].drawEnemyCircle();
 		a[1].drawEnemyCircle();
@@ -68,10 +76,7 @@ int main()
 		tri2.drawTriangle();
 
 
-		/*time_t currentTime, diffTime;
-	    time(&currentTime);
-		diffTime = difftime(currentTime,lastTime);
-		int clock = (int)difftime % 55;*/
+
 		Sleep(55);
 	}
 }
