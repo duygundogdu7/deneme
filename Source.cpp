@@ -52,7 +52,7 @@ int main()
 		}
 		if(getKey('P'))
 		{
-			b.addBall(player.getX(),player.getY()-50);
+			b.addBullet(player.getX(),player.getY()-50);
 		}
 
 		player.drawPlayer();
@@ -63,6 +63,8 @@ int main()
 		lifeup.drawLifeUp();
 		tri1.drawTriangle();
 		tri2.drawTriangle();
+		tri1.drawTriangleBullet();
+		tri2.drawTriangleBullet();
 		for(int i=0;i<=b.getNum();i++)
 			b.drawBullet(i);
 		Sleep(50);

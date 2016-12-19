@@ -14,7 +14,7 @@ class Bullet
 	int bulletnum;
 public:
 	Bullet(void);
-	void addBall(int x,int y);
+	void addBullet(int x,int y);
 	//void realloc (int,int);
 	void drawBullet (int);
 	void setX(float);
@@ -22,5 +22,6 @@ public:
 	float getX();
 	float getY();
 	int getNum();
+	void drawBulletTri (int x,int y);
 	~Bullet(void);
 };
