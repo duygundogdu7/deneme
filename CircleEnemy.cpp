@@ -10,6 +10,7 @@ CircleEnemy::CircleEnemy(float a,float b)
 	frames = 40;
 	rightdir = true;
 	numberofenemies++;
+	alive = true;
 }
 void CircleEnemy::move(void)//cirle enemy hareket için
 {
@@ -42,4 +43,8 @@ void CircleEnemy::drawEnemyCircle()
 {
 	useBrush(1, RGB(0, 0, 205));
 	drawCircle(x,y,20);
+}
+bool CircleEnemy::isAlive()
+{
+	return alive;
 }

@@ -7,7 +7,9 @@
 #include "LifeUp.h"
 #include "TriangleEnemy.h"
 #include "Bullet.h"
+#include "EnemyBullet.h"
 using namespace std;
+
 
 
 int main()
@@ -18,8 +20,11 @@ int main()
 	Player player;
 	CircleEnemy a[3] = { CircleEnemy(210,300),CircleEnemy(400,300),CircleEnemy(590,300)};
 	LifeUp lifeup(500, 150);
-	TriangleEnemy tri1(275,480),tri2(675,480);
+	TriangleEnemy* tri1 = new TriangleEnemy(275,480);
+	TriangleEnemy* tri2 = new TriangleEnemy(675,480);
 	Bullet b;
+	EnemyBullet t1,t2;
+	int loop = 0;
 
 	while(true)
 	{
@@ -31,8 +36,8 @@ int main()
 		a[0].move();
 		a[1].move();
 		a[2].move();
-		tri1.move();
-		tri2.move();
+		tri1->move();
+		tri2->move();
 
 		if(getKey('W'))
 		{
@@ -50,23 +55,49 @@ int main()
 		{
 			player.move(DIRECTION_RIGHT);
 		}
-		if(getKey('P'))
+		if(getKey('P') && loop == 10)
 		{
 			b.addBullet(player.getX(),player.getY()-50);
+			loop = 0;
 		}
-
+		if(tri1->isAlive())
+		{			
+			tri1->checkCol(b);
+			tri1->drawTriangle(t1);
+			for(int i=0;i<=t1.getNum();i++)
+				t1.drawBullet(i);
+		}
+		else
+		{
+			t1.deleteAll();
+		}
+		if(tri2->isAlive())
+		{
+			tri2->checkCol(b);
+			tri2->drawTriangle(t2);
+			for(int i=0;i<=t2.getNum();i++)
+				t2.drawBullet(i);
+		}
+		else
+		{
+			t2.deleteAll();
+		}
+		blocks.checkCol(b);
 		player.drawPlayer();
 		a[0].drawEnemyCircle();
 		a[1].drawEnemyCircle();
 		a[2].drawEnemyCircle();
 		blocks.drawBlocks();
 		lifeup.drawLifeUp();
-		tri1.drawTriangle();
-		tri2.drawTriangle();
-		tri1.drawTriangleBullet();
-		tri2.drawTriangleBullet();
+
+
+		for(int i=0;i<=t2.getNum();i++)
+			t2.drawBullet(i);
 		for(int i=0;i<=b.getNum();i++)
 			b.drawBullet(i);
-		Sleep(50);
+
+		if(loop < 10)
+			loop++;
+		Sleep(60);
 	}
 }
