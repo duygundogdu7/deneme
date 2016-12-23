@@ -59,22 +59,20 @@ int main()
 			b.addBullet(player.getX(),player.getY()-50);
 			loop = 0;
 		}
-		if(tri1->checkCol(b))
-		{
-			if(tri1->isAlive())
-			{			
-				tri1->drawTriangle(t1);
-				for(int i=0;i<=t1.getNum();i++)
-					t1.drawBullet(i);
-			}
-			else
-			{
-				t1.deleteAll();
-			}
-		}
 		b.deletePassing();
 		t1.deletePassing();
 		t2.deletePassing();
+		tri2->checkCol(b);
+		if(tri1->isAlive())
+		{
+			tri1->drawTriangle(t1);
+			for(int i=0;i<=t1.getNum();i++)
+				t1.drawBullet(i);
+		}
+		else
+		{
+			t1.deleteAll();
+		}
 		tri2->checkCol(b);
 		if(tri2->isAlive())
 		{
