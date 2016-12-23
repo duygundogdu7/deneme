@@ -12,7 +12,7 @@ CircleEnemy::CircleEnemy(float a,float b)
 	numberofenemies++;
 	alive = true;
 }
-void CircleEnemy::move(void)//cirle enemy hareket için
+void CircleEnemy::move(void)
 {
 	if(frames > 0)
 	{

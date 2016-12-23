@@ -8,5 +8,7 @@ public:
 	~EnemyBullet();
 
 	void drawBullet (int);
+	void deleteAll();
+	void deletePassing (void);
 };
 

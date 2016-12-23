@@ -15,7 +15,6 @@ using namespace std;
 int main()
 {
 	setWindowSize(1000, 700);
-
 	Blocks blocks;
 	Player player;
 	CircleEnemy a[3] = { CircleEnemy(210,300),CircleEnemy(400,300),CircleEnemy(590,300)};
@@ -55,25 +54,30 @@ int main()
 		{
 			player.move(DIRECTION_RIGHT);
 		}
-		if(getKey('P') && loop == 10)
+		if(getKey(' ') && loop == 10)
 		{
 			b.addBullet(player.getX(),player.getY()-50);
 			loop = 0;
 		}
-		if(tri1->isAlive())
-		{			
-			tri1->checkCol(b);
-			tri1->drawTriangle(t1);
-			for(int i=0;i<=t1.getNum();i++)
-				t1.drawBullet(i);
-		}
-		else
+		if(tri1->checkCol(b))
 		{
-			t1.deleteAll();
+			if(tri1->isAlive())
+			{			
+				tri1->drawTriangle(t1);
+				for(int i=0;i<=t1.getNum();i++)
+					t1.drawBullet(i);
+			}
+			else
+			{
+				t1.deleteAll();
+			}
 		}
+		b.deletePassing();
+		t1.deletePassing();
+		t2.deletePassing();
+		tri2->checkCol(b);
 		if(tri2->isAlive())
 		{
-			tri2->checkCol(b);
 			tri2->drawTriangle(t2);
 			for(int i=0;i<=t2.getNum();i++)
 				t2.drawBullet(i);
@@ -91,13 +95,11 @@ int main()
 		lifeup.drawLifeUp();
 
 
-		for(int i=0;i<=t2.getNum();i++)
-			t2.drawBullet(i);
 		for(int i=0;i<=b.getNum();i++)
 			b.drawBullet(i);
 
 		if(loop < 10)
 			loop++;
-		Sleep(60);
+		Sleep(40);
 	}
 }

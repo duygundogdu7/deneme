@@ -65,7 +65,13 @@ int Bullet::getNum ()
 {
 	return bulletnum;
 }
-void Bullet::deleteAll()
+void Bullet::deletePassing( )
 {
-	delete [] bullets;
+	for(int i=0;i<bulletnum;i++)
+	{
+		if(bullets[i].posY<100)
+			deleteBullet(i);
+	}
 }
+
+

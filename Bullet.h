@@ -26,5 +26,6 @@ public:
 	int getNum();
 	void drawBulletTri (int x,int y);
 	void deleteAll();
+	virtual void deletePassing (void);
 	~Bullet(void);
 };
