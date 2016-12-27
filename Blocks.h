@@ -23,14 +23,14 @@ class Blocks
 private:
 	Squares *squares;
 	Rectangles *rectangles;
-	
+
 	int numofsquares;
 	int numofrectangles;
 public:
 	Blocks();
 
 	void drawBlocks();
-	bool checkCol(Bullet& a);
-	void deleteSquare (int j);
-	void deleteRectangle (int j);
+	bool checkCol(Bullet& a, int& score, int& cnt);
+	void deleteSquare(int j);
+	void deleteRectangle(int j);
 };

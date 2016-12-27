@@ -9,13 +9,12 @@ class TriangleEnemy : public CircleEnemy
 {
 private:
 	int c;
-	
+
 public:
 	Bullet b;
-	TriangleEnemy(float,float);
+	TriangleEnemy(float, float);
 	void drawTriangle(EnemyBullet& bullet);
 	void drawTriangleBullet();
-	bool checkCol(Bullet& a);
+	bool checkCol(Bullet& a, int& score, int& cnt);
 
 };
-

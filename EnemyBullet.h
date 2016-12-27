@@ -7,8 +7,7 @@ public:
 	EnemyBullet();
 	~EnemyBullet();
 
-	void drawBullet (int);
+	void drawBullet(int);
 	void deleteAll();
-	void deletePassing (void);
+	void deletePassing(void);
 };
-

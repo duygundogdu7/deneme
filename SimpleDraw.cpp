@@ -24,7 +24,7 @@ void usePen(int style, int width, COLORREF color)
 	initialize();
 	DWORD sem_result = WaitForSingleObject(sem_initFinished, INFINITE);
 	ReleaseSemaphore(sem_initFinished, 1, NULL);
-	if(pen) DeleteObject(pen);
+	if (pen) DeleteObject(pen);
 	pen = CreatePen(style, width, color);
 }
 
@@ -34,22 +34,22 @@ void useBrush(int style, COLORREF color)
 	initialize();
 	DWORD sem_result = WaitForSingleObject(sem_initFinished, INFINITE);
 	ReleaseSemaphore(sem_initFinished, 1, NULL);
-	if(brush) DeleteObject(brush);
-	switch(style) {
+	if (brush) DeleteObject(brush);
+	switch (style) {
 	case 1:
 		brush = CreateSolidBrush(color); break;
 	case 2:
-		brush = CreateHatchBrush(HS_BDIAGONAL,  color); break;
+		brush = CreateHatchBrush(HS_BDIAGONAL, color); break;
 	case 3:
-		brush = CreateHatchBrush(HS_CROSS,  color); break;
+		brush = CreateHatchBrush(HS_CROSS, color); break;
 	case 4:
-		brush = CreateHatchBrush(HS_DIAGCROSS,  color); break;
+		brush = CreateHatchBrush(HS_DIAGCROSS, color); break;
 	case 5:
-		brush = CreateHatchBrush(HS_FDIAGONAL,  color); break;
+		brush = CreateHatchBrush(HS_FDIAGONAL, color); break;
 	case 6:
-		brush = CreateHatchBrush(HS_HORIZONTAL,  color); break;
+		brush = CreateHatchBrush(HS_HORIZONTAL, color); break;
 	case 7:
-		brush = CreateHatchBrush(HS_VERTICAL,  color); break;
+		brush = CreateHatchBrush(HS_VERTICAL, color); break;
 	default:
 		brush = NULL; break;
 	}
@@ -132,7 +132,7 @@ void drawArc(int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4)
 
 void drawPolygon(int points[][2], int n)
 {
-	POINT *p = (POINT *) points;
+	POINT *p = (POINT *)points;
 	_STARTPAINT();
 	Polygon(hDC, p, n);
 	_ENDPAINT();
@@ -140,7 +140,7 @@ void drawPolygon(int points[][2], int n)
 
 void drawPolyline(int points[][2], int n)
 {
-	POINT *p = (POINT *) points;
+	POINT *p = (POINT *)points;
 	_STARTPAINT();
 	Polyline(hDC, p, n);
 	_ENDPAINT();
@@ -154,82 +154,82 @@ void setWindowSize(int w, int h)
 	SetWindowPos(window, NULL, 0, 0, w, h, SWP_NOMOVE);
 }
 
-long __stdcall WindowProcedure( HWND window, unsigned int msg, WPARAM wp, LPARAM lp )
+long __stdcall WindowProcedure(HWND window, unsigned int msg, WPARAM wp, LPARAM lp)
 {
 	DWORD sem_result;
-	switch(msg)
+	switch (msg)
 	{
 	case WM_PAINT:
 		sem_result = WaitForSingleObject(sem_paintRequest, 0L);
-		if(sem_result == WAIT_OBJECT_0)
+		if (sem_result == WAIT_OBJECT_0)
 		{
 			hDC = BeginPaint(window, &ps);
 			SelectObject(hDC, pen);
-			if(brush) SelectObject(hDC, brush);
-			else SelectObject(hDC, GetStockObject( NULL_BRUSH ));
+			if (brush) SelectObject(hDC, brush);
+			else SelectObject(hDC, GetStockObject(NULL_BRUSH));
 			ReleaseSemaphore(sem_paintStart, 1, NULL);
 			WaitForSingleObject(sem_paintDone, INFINITE);
 			EndPaint(window, &ps);
 		}
 		return 0L;
 	case WM_DESTROY:
-		std::cout << "\nDestroying window\n" ;
-		PostQuitMessage(0) ;
+		std::cout << "\nDestroying window\n";
+		PostQuitMessage(0);
 		return 0L;
 	case WM_LBUTTONDOWN:
 		mouseButton = 1;
-		return DefWindowProc( window, msg, wp, lp ) ;
+		return DefWindowProc(window, msg, wp, lp);
 	case WM_RBUTTONDOWN:
 		mouseButton = 2;
-		return DefWindowProc( window, msg, wp, lp ) ;
+		return DefWindowProc(window, msg, wp, lp);
 	case WM_LBUTTONUP:
 	case WM_RBUTTONUP:
 		mouseButton = 0;
-		return DefWindowProc( window, msg, wp, lp ) ;
+		return DefWindowProc(window, msg, wp, lp);
 	case WM_MOUSEMOVE:
 		mouseX = LOWORD(lp);
 		mouseY = HIWORD(lp);
-		return DefWindowProc( window, msg, wp, lp ) ;
-case WM_KEYDOWN:
+		return DefWindowProc(window, msg, wp, lp);
+	case WM_KEYDOWN:
 		keyPressed = 1;
 		_key = wp;
 		_keys[wp] = -1;
-		return DefWindowProc( window, msg, wp, lp ) ;
+		return DefWindowProc(window, msg, wp, lp);
 	case WM_KEYUP:
 		keyPressed = 0;
 		_keys[wp] = 0;
 	default:
-		return DefWindowProc( window, msg, wp, lp ) ;
+		return DefWindowProc(window, msg, wp, lp);
 	}
 }
 
 int getMouseX() { return mouseX; }
 int getMouseY() { return mouseY; }
 int getMouseButton() { return mouseButton; }
-int getKey() { if(keyPressed) return _key; return 0; }
+int getKey() { if (keyPressed) return _key; return 0; }
 int getKey(int k) { return _keys[k]; }
 
 DWORD WINAPI openWindow(LPVOID lpParameter)
 {
 	thread_data *td = (thread_data*)lpParameter;
 
-	std::cout << "Opening window!\n" ;
+	std::cout << "Opening window!\n";
 
 	WNDCLASSEX wndclass = { sizeof(WNDCLASSEX), CS_DBLCLKS, WindowProcedure,
 		0, 0, GetModuleHandle(0), LoadIcon(0,IDI_APPLICATION),
-		LoadCursor(0,IDC_ARROW), HBRUSH(COLOR_WINDOW+1),
-		0, L"myclass", LoadIcon(0,IDI_APPLICATION) } ;
-	if( RegisterClassEx(&wndclass) )
+		LoadCursor(0,IDC_ARROW), HBRUSH(COLOR_WINDOW + 1),
+		0, L"myclass", LoadIcon(0,IDI_APPLICATION) };
+	if (RegisterClassEx(&wndclass))
 	{
-		window = CreateWindowEx( 0, L"myclass", L"Output window",
+		window = CreateWindowEx(0, L"myclass", L"Output window",
 			WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT,
-			CW_USEDEFAULT, CW_USEDEFAULT, 0, 0, GetModuleHandle(0), 0 ) ;
-		if(window)
+			CW_USEDEFAULT, CW_USEDEFAULT, 0, 0, GetModuleHandle(0), 0);
+		if (window)
 		{
-			ShowWindow( window, SW_SHOWDEFAULT ) ;
+			ShowWindow(window, SW_SHOWDEFAULT);
 			ReleaseSemaphore(sem_initFinished, 1, NULL);
-			MSG msg ;
-			while( GetMessage( &msg, 0, 0, 0 ) ) DispatchMessage(&msg);
+			MSG msg;
+			while (GetMessage(&msg, 0, 0, 0)) DispatchMessage(&msg);
 		}
 	}
 
@@ -239,11 +239,11 @@ DWORD WINAPI openWindow(LPVOID lpParameter)
 void initialize()
 {
 	DWORD sem_result = WaitForSingleObject(sem_initialized, 0L);
-	if(sem_result == WAIT_OBJECT_0)
+	if (sem_result == WAIT_OBJECT_0)
 	{
-		CreateThread(NULL, 0, openWindow, new thread_data(0) , 0, 0);
+		CreateThread(NULL, 0, openWindow, new thread_data(0), 0, 0);
 		sem_result = WaitForSingleObject(sem_initFinished, INFINITE);
-		if(sem_result == WAIT_OBJECT_0)
+		if (sem_result == WAIT_OBJECT_0)
 		{
 			ReleaseSemaphore(sem_initFinished, 1, NULL);
 			usePen();

@@ -15,17 +15,17 @@ protected:
 	int bulletnum;
 public:
 	Bullet(void);
-	void addBullet(int x,int y);
-	void deleteBullet (int);
-	virtual void drawBullet (int);
+	void addBullet(int x, int y);
+	void deleteBullet(int);
+	virtual void drawBullet(int);
 	void setX(float);
 	void setY(float);
 	BulletPos* getPos();
 	float getX();
 	float getY();
 	int getNum();
-	void drawBulletTri (int x,int y);
+	void drawBulletTri(int x, int y);
 	void deleteAll();
-	virtual void deletePassing (void);
+	virtual void deletePassing(void);
 	~Bullet(void);
 };

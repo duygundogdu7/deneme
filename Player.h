@@ -1,5 +1,5 @@
 #pragma once
-
+#include"Bullet.h"
 enum Directions
 {
 	DIRECTION_DEFAULT,
@@ -11,14 +11,16 @@ enum Directions
 
 class Player
 {
-	float x,y;//karenin ortasýnýn koordinatlarý
+	float x, y;
+	int c;
 public:
 	Player(void);
-	void move (int direction);
+	int getHealth();
+	void move(int direction);
 	void drawPlayer();
 	void setX(float);
 	void setY(float);
 	float getX();
 	float getY();
+	bool checkCol(Bullet& a, Bullet& b);
 };
-

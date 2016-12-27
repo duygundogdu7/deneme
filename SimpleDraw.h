@@ -26,7 +26,7 @@ struct thread_data
 	int m_id;
 	thread_data(int id) : m_id(id) {}
 };
-long __stdcall WindowProcedure( HWND window, unsigned int msg, WPARAM wp, LPARAM lp );
+long __stdcall WindowProcedure(HWND window, unsigned int msg, WPARAM wp, LPARAM lp);
 int getMouseX();
 int getMouseY();
 int getMouseButton();
