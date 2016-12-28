@@ -25,9 +25,9 @@ void Winner(int& score)
 {
 	ClearScreen();
 	char a[20];
-	drawText(400, 300, "Y O U  W I N");
-	drawText(400, 390, "Your Score: ");
-	drawText(500, 390, _itoa(score, a, 10));
+	drawText(450, 250, "Y O U  W I N");
+	drawText(450, 340, "Your Score: ");
+	drawText(550, 340, _itoa(score, a, 10));
 	while (true)
 	{
 	}
@@ -37,9 +37,9 @@ void GameOver(int& score)
 {
 	ClearScreen();
 	char a[20];
-	drawText(400, 300, "G A M E  O V E R");
-	drawText(400, 390, "Your Score: ");
-	drawText(500, 390, _itoa(score, a, 10));
+	drawText(450, 250, "G A M E  O V E R");
+	drawText(450, 340, "Your Score: ");
+	drawText(550, 340, _itoa(score, a, 10));
 	while (true)
 	{			}
 }
@@ -58,9 +58,9 @@ void ShowScore(int& score, int health)
 
 void StartScreen()
 {
-	drawText(350, 300, "KILL ALL THE OBJECTS TO WIN");
-	drawText(350, 320, "A - D TO MOVE, SPACE TO FIRE");
-	drawText(350, 380, "PRESS ANY KEY TO CONTINUE");
+	drawText(400, 250, "KILL ALL THE OBJECTS TO WIN");
+	drawText(400, 270, "A - D TO MOVE, SPACE TO FIRE");
+	drawText(400, 330, "PRESS ANY KEY TO CONTINUE");
 	while(!getKey())
 	{ }
 }
