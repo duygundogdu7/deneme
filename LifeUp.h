@@ -8,7 +8,7 @@ private:
 	int posX;
 	int posY;
 	bool alive;
-	int c = 3;
+	int c ;
 public:
 	LifeUp(int, int);
 	void drawLifeUp();
